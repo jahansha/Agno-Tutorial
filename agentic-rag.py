@@ -1,26 +1,28 @@
-from phi.agent import Agent
-from phi.model.openai import OpenAIChat
-from phi.embedder.openai import OpenAIEmbedder
-from phi.knowledge.pdf import PDFUrlKnowledgeBase
-from phi.vectordb.lancedb import LanceDb, SearchType
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.embedder.openai import OpenAIEmbedder
+from agno.knowledge.pdf import PDFKnowledgeBase, PDFReader
+from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.vectordb.lancedb import LanceDb
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
 # Create a knowledge base from a PDF
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://phi-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    # Use LanceDB as the vector database
-    vector_db=LanceDb(
-        table_name="recipes",
-        uri="tmp/lancedb",
-        search_type=SearchType.vector,
-        embedder=OpenAIEmbedder(model="text-embedding-3-small"),
-    ),
+vector_db = LanceDb(
+    table_name="recipes",
+    uri="/tmp/lancedb",  # You can change this path to store data elsewhere
+    embedder=OpenAIEmbedder(model="text-embedding-3-small"),
 )
+
+knowledge_base = PDFUrlKnowledgeBase(
+    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    vector_db=vector_db,
+)
+
 # Comment out after first run as the knowledge base is loaded
-knowledge_base.load()
+knowledge_base.load(recreate=False) 
 
 prompt = """
 "You only answer with information from your RAG database.

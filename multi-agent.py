@@ -1,10 +1,10 @@
 import httpx
 from pathlib import Path
-from phi.agent import Agent
-from phi.tools.csv_tools import CsvTools
-from phi.tools.duckduckgo import DuckDuckGo
+from agno.agent import Agent
+from agno.tools.csv_toolkit import CsvTools
+from agno.tools.duckduckgo import DuckDuckGoTools
 import os
-from phi.playground import Playground, serve_playground_app
+from agno.playground import Playground, serve_playground_app
 
 from dotenv import load_dotenv
 
@@ -40,7 +40,7 @@ imdb_csv_agent = Agent(
 
 web_search_agent = Agent(
     name="Web Search Agent",
-    tools=[DuckDuckGo()],
+    tools=[DuckDuckGoTools()],
     markdown=True,
     show_tool_calls=True,
 )
