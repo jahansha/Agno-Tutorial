@@ -1,0 +1,27 @@
+
+To commit to git:
+git add .
+git commit -m "your message"
+git push
+
+
+VSCode:
+to bring in a new terminal
+    Click on VSCode icon
+    view menu bar
+    click on terminal
+
+
+SEE COURSE_RESOURCES.md
+To  create / use codespace:
+    go to github repo
+    create a new fork : 
+    click on Create
+
+    Click on code:
+    Create codespace on Main
+
+    Create .env file [ here we will copy items from env.template
+
+
+    pip install -r requirement.txt
